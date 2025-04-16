@@ -1,33 +1,103 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Net for Hope</title>
+    <title>Net for Hope</title> <!-- Project name: Net for Hope -->
 
-    <!-- Lien vers Google Fonts pour la police Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- Metadata for curious visitors -->
+    <meta name="description" content="A mysterious project. Location: Unknown. Date: 2026.">
+    <meta name="location" content="Unknown">
+    <meta name="date" content="2026">
+    <meta name="project" content="Net for Hope">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> <!-- Poppins font -->
 
     <style>
+        /* General style */
         body {
-            font-family: 'Montserrat', sans-serif; /* Utilisation de la police Montserrat */
-            background-color: #333;
+            background: #111; /* Dark background for a mysterious feel */
             color: white;
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             text-align: center;
+            padding: 20px; /* Added padding around for spacing */
+            box-sizing: border-box; /* Include padding in size calculation */
+            overflow: hidden;
+            flex-direction: column; /* Stack elements vertically */
         }
 
+        /* Main text style */
         h1 {
-            font-size: 5em;
-            letter-spacing: 2px;
-            color: #fff;
-            opacity: 0.9;
-            margin: 0;
+            font-size: 6rem;
+            letter-spacing: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #f39c12;
+            opacity: 0.8;
+            transform: translateY(0);
+            animation: fadeInUp 2s ease-out forwards; /* Text animation */
+            margin: 0; /* Remove default margin around text */
+        }
+
+        /* Text animation */
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive style for tablets */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4rem; /* Smaller text for tablets */
+            }
+            body {
+                padding: 40px; /* Increase padding for tablets */
+            }
+        }
+
+        /* Responsive style for phones */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 3rem; /* Smaller text for phones */
+            }
+            body {
+                padding: 30px; /* Increase padding for phones */
+            }
+        }
+
+        /* Visual effect: subtle glow around text */
+        h1::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(243, 156, 18, 0.2);
+            border-radius: 10px;
+            z-index: -1;
+            animation: glow 1.5s infinite alternate;
+        }
+
+        /* Glow animation */
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px rgba(243, 156, 18, 0.5), 0 0 20px rgba(243, 156, 18, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(243, 156, 18, 0.5), 0 0 40px rgba(243, 156, 18, 0.7);
+            }
         }
     </style>
 </head>
