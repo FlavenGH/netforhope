@@ -1,0 +1,46 @@
+/* styles.css */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", "Helvetica Neue", Arial, sans-serif;
+  color: #fff;
+  background: linear-gradient(45deg, #ff8c00, #ffc800, #ff69b4, #ffffff, #ff8c00);
+  background-size: 400% 400%;
+  animation: gradientCycle 20s ease infinite;
+}
+
+@keyframes gradientCycle {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 50%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.center {
+  text-align: center;
+}
+
+h1 {
+  visibility: hidden; /* cacher le texte avant le démarrage du JS */
+  font-size: clamp(36px, 7vw, 88px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: white;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.35);
+}
+
+.cursor {
+  margin-left: 4px;
+  animation: blink 1s steps(2,start) infinite;
+  opacity: 0.9;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
