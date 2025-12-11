@@ -1,152 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Net for Hope</title>
-  <style>
-    :root {
-      --primary-color: #00ffe1;
-      --bg-color: #000000;
-      --text-color: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      height: 100vh;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: 'Courier New', Courier, monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .typing-wrapper {
-      height: 3.5em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 3rem;
-    }
-
-    .typing {
-      font-size: clamp(1.5rem, 5vw, 3rem);
-      white-space: nowrap;
-      overflow: hidden;
-      max-width: 90vw;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background-color: var(--text-color);
-      margin-left: 2px;
-      animation: blink 1s step-end infinite;
-      vertical-align: bottom;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    input[type="password"] {
-      padding: 0.75rem 1.2rem;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      font-size: 1rem;
-      color: var(--text-color);
-      width: 80vw;
-      max-width: 300px;
-      text-align: center;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 255, 225, 0.08);
-    }
-
-    input[type="password"]::placeholder {
-      color: rgba(255, 255, 255, 0.2);
-      font-style: italic;
-      letter-spacing: 2px;
-    }
-
-    input[type="password"]:focus {
-      outline: none;
-      border-color: var(--primary-color);
-      background: rgba(0, 255, 225, 0.05);
-      box-shadow: 0 0 15px rgba(0, 255, 225, 0.15);
-    }
-
-    @media (max-height: 500px) {
-      .typing-wrapper {
-        margin-bottom: 2rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <div class="container">
-    <div class="typing-wrapper">
-      <div class="typing" id="typewriter"><span id="text"></span><span class="cursor"></span></div>
-    </div>
-    <form onsubmit="return false;">
-      <input type="password" placeholder="••••••••">
-    </form>
+  <div class="center">
+    <h1 id="text"><span id="output"></span><span class="cursor">|</span></h1>
   </div>
 
-  <!-- 
-    Informations classifiées :
-
-    Location : Inconnu
-    Nom du projet : Net for Hope
-  -->
-
   <script>
-    const phrases = ["Net for Hope", "Coming 2026"];
-    const textEl = document.getElementById("text");
+    const el = document.getElementById('output');
+    const h1 = document.getElementById('text');
+    const messages = ["Net for Hope", "Coming 2026"];
+    let index = 0;
+    let charIndex = 0;
+    let deleting = false;
 
-    let part = 0;
-    let i = 0;
-    let isDeleting = false;
+    function animate() {
+      const current = messages[index];
 
-    function type() {
-      const current = phrases[part];
-      if (isDeleting) {
-        textEl.textContent = current.substring(0, i--);
+      if (!deleting) {
+        el.textContent = current.slice(0, charIndex);
+        if (charIndex < current.length) {
+          charIndex++;
+          setTimeout(animate, 90);
+        } else {
+          // pause avant effacement
+          setTimeout(() => { deleting = true; animate(); }, 900);
+        }
       } else {
-        textEl.textContent = current.substring(0, i++);
+        if (charIndex > 0) {
+          charIndex--;
+          el.textContent = current.slice(0, charIndex);
+          setTimeout(animate, 60);
+        } else {
+          // passer au message suivant après effacement complet
+          deleting = false;
+          index = (index + 1) % messages.length;
+          setTimeout(animate, 180);
+        }
       }
-
-      let speed = isDeleting ? 50 : 100;
-
-      if (!isDeleting && i > current.length) {
-        speed = 1500;
-        isDeleting = true;
-      } else if (isDeleting && i < 0) {
-        isDeleting = false;
-        part = (part + 1) % phrases.length;
-        speed = 500;
-      }
-
-      setTimeout(type, speed);
     }
 
-    type();
+    document.addEventListener("DOMContentLoaded", () => {
+      h1.style.visibility = "visible";
+      el.textContent = ""; // s'assurer que le texte est vide au démarrage
+      animate();
+    });
   </script>
 </body>
 </html>
